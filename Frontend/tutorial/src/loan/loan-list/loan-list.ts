@@ -2,8 +2,6 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoanEdit } from '../loan-edit/loan-edit';
 import { LoanService } from '../loan';
-//import { Loan } from '../model/Loan';
-//import { CategoryService } from '../../category/category';
 import { Loan } from '../Model/Loan';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -63,7 +61,7 @@ export class LoanList implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadPage(); // Aquí puedes asignar los préstamos a una variable local para mostrarlos en la tabla
+    this.loadPage(); 
   }
 
   ngAfterViewInit(): void {
@@ -92,21 +90,6 @@ export class LoanList implements OnInit {
         pageable.pageNumber = event.pageIndex;
     }
 
-    /*const filters = {
-      pageable: pageable,
-      gameId: this.filterGameTitle ? this.filterGameTitle.id : null,
-      clientId: this.filterClient ? this.filterClient.id : null,
-      date: this.formatDate(this.dateFilter)
-    };
-
-    this.loanService.getLoansPageFiltered(filters).subscribe((data) => {
-        this.dataSource.data = data.content;
-        this.pageNumber = data.pageable.pageNumber;
-        this.pageSize = data.pageable.pageSize;
-        this.totalElements = data.totalElements;
-    });*/
-
-
     this.loanService.getLoansPage(pageable).subscribe((data) => {
         this.dataSource.data = data.content;
         this.pageNumber = data.pageable.pageNumber;
@@ -120,7 +103,6 @@ export class LoanList implements OnInit {
     this.filterClient = null;
     this.dateFilter = null;
     this.loadPage();
-    //this.onSearch();
   }
 
   onSearch() {
@@ -159,15 +141,6 @@ export class LoanList implements OnInit {
       this.totalElements = data.totalElements;
     });
   }
-
-  /*onSearch(): void { 
-    const titleid = this.filterGameTitle ? this.filterGameTitle.id : null;
-    const clientId = this.filterClient != null ? this.filterClient.id : null;
-    const date = this.formatDate(this.dateFilter);
-    this.loanService
-        .getLoans(titleid, clientId, date)
-        .subscribe((loans) => (this.loans = loans));
-  }*/
   
   createLoan(){ 
     const dialogRef = this.dialog.open(LoanEdit, {
@@ -217,7 +190,6 @@ export class LoanList implements OnInit {
 
   private formatDateForInput(date: Date | null): string | null {
     if (!date) return null;
-    // Usa el constructor "numérico" que es local y NO UTC
     const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     const yyyy = d.getFullYear();
     const mm = String(d.getMonth() + 1).padStart(2, '0');

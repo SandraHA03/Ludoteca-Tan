@@ -138,7 +138,6 @@ export class LoanEdit implements OnInit {
 
   private formatDateForInput(date: Date | null): string | null {
     if (!date) return null;
-    // Usa el constructor "numérico" que es local y NO UTC
     const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     const yyyy = d.getFullYear();
     const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -160,13 +159,6 @@ export class LoanEdit implements OnInit {
       this.dateFilterTo = formatted ? new Date(formatted) : null;
     }
   }
-  private formatDate(date: Date): string | null {
-    if (!date) return null;
-    const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    const yyyy = normalizedDate.getFullYear();
-    const mm = String(normalizedDate.getMonth() + 1).padStart(2, '0');
-    const dd = String(normalizedDate.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-  }
+
 
 }
