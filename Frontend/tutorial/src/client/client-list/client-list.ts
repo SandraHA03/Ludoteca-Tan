@@ -72,7 +72,3 @@ export class ClientList implements OnInit{
     }
 
 }
-
-
-
-7
