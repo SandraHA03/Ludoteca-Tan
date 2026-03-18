@@ -1,0 +1,69 @@
+<div class="container">
+    @if (loan.id) {
+        <h1>Modificar Préstamo</h1>
+    } @else {
+        <h1>Crear Préstamo</h1>
+    }
+
+    <form>
+        <mat-form-field>
+            <mat-label>Identificador</mat-label>
+            <input type="text" matInput placeholder="Identificador" [(ngModel)]="loan.id" name="id" disabled>
+        </mat-form-field>
+
+        
+        <mat-form-field>
+            <mat-label>Cliente</mat-label>
+            <mat-select disableRipple [(ngModel)]="loan.client" name="clientName" required>
+            @for (client of clients; track client.id) {
+                <mat-option [value]="client">{{ client.name }}</mat-option>
+            }
+            </mat-select>
+            <mat-error>{{ errorMessage }}</mat-error>
+        </mat-form-field>
+
+
+        
+        <mat-form-field>
+            <mat-label>Juego</mat-label>
+            <mat-select disableRipple [(ngModel)]="loan.game" name="gameName" required>
+            @for (game of games; track game.id) {
+                <mat-option [value]="game">{{ game.title }}</mat-option>
+            }
+            </mat-select>
+            <mat-error>{{ errorMessage }}</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field>
+            <mat-label>Fecha inicio</mat-label>
+            <input matInput [matDatepicker]="dpFrom"
+                (click)="dpFrom.open()"
+                color="accent"
+                [(ngModel)]="dateFilterFrom"
+                name="dateFrom"
+                (dateChange)="onDateChange('from')" placeholder="dd/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="dpFrom"></mat-datepicker-toggle>
+            <mat-datepicker #dpFrom></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha fin</mat-label>
+            <input matInput [matDatepicker]="dpTo"
+                (click)="dpTo.open()"
+                [min]="dateFilterFrom"
+                [max]="maxDate"
+                color="accent"
+                [(ngModel)]="dateFilterTo"
+                name="dateTo"
+                (dateChange)="onDateChange('to')" placeholder="dd/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>
+            <mat-datepicker #dpTo></mat-datepicker>
+        </mat-form-field>
+    </form>
+
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>

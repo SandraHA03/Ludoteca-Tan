@@ -1,0 +1,11 @@
+import { Game } from "../../game/model/Game";
+import { Client } from "../../client/model/Client";
+
+
+export class Loan {
+    id: number;
+    game: Game;
+    client: Client;
+    dateFrom: string | Date;
+    dateTo: string | Date;
+}
